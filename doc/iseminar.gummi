@@ -1,0 +1,12 @@
+version=0.6.0
+typesetter=pdflatex
+steps=texpdf
+root=/home/sosterwalder/documents/projects/school/bti7311/doc/documentation.tex
+
+
+file=/home/sosterwalder/documents/projects/school/bti7311/doc/glossary.tex
+file=/home/sosterwalder/documents/projects/school/bti7311/doc/title.tex
+
+
+
+file=/home/sosterwalder/documents/projects/school/bti7311/doc/bibliography.bib
