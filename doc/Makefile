@@ -1,4 +1,5 @@
 all:
 	pdflatex documentation.tex
-	bibtex documentation
+	biber documentation
+	makeglossaries documentation.glo
 	pdflatex documentation.tex

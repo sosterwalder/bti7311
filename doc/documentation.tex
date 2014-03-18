@@ -7,6 +7,7 @@
 \usepackage[xindy]{glossaries}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
+\usepackage{bookmark}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage[backend=biber]{biblatex}
@@ -14,6 +15,12 @@
 \usepackage[ngerman]{babel}
 \usepackage[babel,german=quotes]{csquotes}
 
+% Set TOC title
+\renewcommand{\contentsname}{Inhalt}
+\addto\captionsngerman{
+  \renewcommand{\contentsname}
+    {Inhalt}
+}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{
@@ -29,16 +36,28 @@
 
 \input{./glossary.tex}
 \makeglossaries
+% Add all glossary entries no matter if they get
+% referenced or not
+\glsaddall
 
+\setlength{\headheight}{32pt}
+
+% Add all bibliography entries no matter if they
+% get cited or nod
+\nocite{*}
 
 \begin{document}
 \input{./title.tex}
 
 \newpage
 
+\tableofcontents
+
+\newpage
+
 \section{Einleitung}
 
-[Eine Einleitung zu dieser Arbeit. Kurzbeschreibung des Ablaufes / der Einteilung.]\\
+[Eine Einleitung zu dieser Arbeit. Kurzbeschreibung des Ablaufes der Einteilung.]
 
 \noindent [TODO:]
 \begin{compactitem}
@@ -81,7 +100,8 @@
 [Vorstellung von versch. Algorithmen für Voronoi-Diagramme (sofern mehrere existieren), Laufzeitverhalten, Komplexität, Vor- und Nachteile.]
 
 \subsection{Zusammenhang mit Voronoi-Diagrammen}
-[Erklärung der Dualität von Voronoi-Diagrammen und der Delaunay-Triangulation.]
+[Erklärung der Dualität von \\
+Voronoi-Diagrammen und der Delaunay-Triangulation.]
 
 \subsection{Praktische Anwendung}
 [Ausblick auf praktische Anwendungen und Implementationen, ggf. eigene Implementation.]
@@ -98,7 +118,6 @@
 
 \newpage
 
-\section{Glossar}
 \printglossary[numberedsection]
 
 \end{document}
