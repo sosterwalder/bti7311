@@ -1,16 +1,19 @@
 \documentclass[pdftex,12pt,a4paper]{article}
 
+\usepackage{amssymb}
 \usepackage[pdftex]{graphicx}
+\usepackage{etoolbox}
 \usepackage{paralist}
 \usepackage{mathtools}
 \usepackage{hyperref}
+\usepackage{floatflt}
 \usepackage[xindy]{glossaries}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{bookmark}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\usepackage[backend=biber]{biblatex}
+\usepackage[style=authoryear,backend=biber]{biblatex}
 \addbibresource{./bibliography.bib}
 \usepackage[ngerman]{babel}
 \usepackage[babel,german=quotes]{csquotes}
@@ -41,12 +44,18 @@
 \glsaddall
 
 \setlength{\headheight}{32pt}
+\setlength{\abovecaptionskip}{2pt plus 3pt minus 2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 
 % Add all bibliography entries no matter if they
 % get cited or nod
 \nocite{*}
 
 \begin{document}
+
 \input{./title.tex}
 
 \newpage
@@ -55,56 +64,19 @@
 
 \newpage
 
-\section{Einleitung}
-
-[Eine Einleitung zu dieser Arbeit. Kurzbeschreibung des Ablaufes der Einteilung.]
-
-\noindent [TODO:]
-\begin{compactitem}
-	\item 10-20 Seiten
-	\item Vollständige Literaturliste
-	\item Klarer, verständlicher Aufbau
-	\item Korrekte Sprache
-\end{compactitem}
+\include{partials/introduction}
 
 \newpage
 
-\section{Grundlagen}
-
-[Beschreibung der Grundlagen. Was sind Voronoi-Diagramme, was ist die Delaunay-Triangulation?]
+\include{partials/basics}
 
 \newpage
 
-\section{Voronoi-Diagramme}
-
-\subsection{Einführung}
-[Eine Erklärung was Voronoi-Diagramme sind und wo sie angewendet werden.]
-
-\subsection{Algorithmen}0
-[Vorstellung von versch. Algorithmen für Voronoi-Diagramme (sofern mehrere existieren), Laufzeitverhalten, Komplexität, Vor- und Nachteile.]
-
-\subsection{Verallgemeinerte Form}
-[Beschreibung der verallgemeinerten Form von Voronoi-Diagrammen.]
-
-\subsection{Praktische Anwendung}
-[Ausblick auf praktische Anwendungen und Implementationen, ggf. eigene Implementation.]
+\include{partials/voronoi/voronoi}
 
 \newpage
 
-\section{Delaunay-Triangulation}
-
-\subsection{Einführung}
-[Eine Erklärung was Voronoi-Diagramme sind und wo sie angewendet werden.]
-
-\subsection{Algorithmen}
-[Vorstellung von versch. Algorithmen für Voronoi-Diagramme (sofern mehrere existieren), Laufzeitverhalten, Komplexität, Vor- und Nachteile.]
-
-\subsection{Zusammenhang mit Voronoi-Diagrammen}
-[Erklärung der Dualität von \\
-Voronoi-Diagrammen und der Delaunay-Triangulation.]
-
-\subsection{Praktische Anwendung}
-[Ausblick auf praktische Anwendungen und Implementationen, ggf. eigene Implementation.]
+\include{partials/delaunay/delaunay}
 
 \newpage
 
@@ -114,6 +86,7 @@ Voronoi-Diagrammen und der Delaunay-Triangulation.]
 \newpage
 
 \section{Literaturliste}
+
 \printbibliography
 
 \newpage
