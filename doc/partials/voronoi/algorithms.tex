@@ -6,7 +6,7 @@ In diesem Kapitel werden die zwei wahrscheinlich meist verwendeten praktische Me
 
 Dabei wird nur der einfachste Fall untersucht: Die Konstruktion eines Voronoi-Diagramm aus einer Menge $S$ mit $n$ Punkten auf einer Ebene. Das Voronoi-Diagramm $V(S)$ soll dabei möglichst effizient berechnet werden.
 
-Da die beiden Strukturen Voronoi-Diagramms $V(S)$ und Delaunay-Triangulation $DT(S)$ dual sind, genügt es eine der beiden Struktur zu berechnen. Die andere Struktur lässt
+Da die beiden Strukturen Voronoi-Diagramm $V(S)$ und Delaunay-Triangulation $DT(S)$ dual sind, genügt es eine der beiden Struktur zu berechnen. Die andere Struktur lässt
 sich in der Zeit $O(n)$ (siehe~\ref{sub:bigSymbols}) daraus ableiten.
 
 Als Grundlage zur Messung der Distanz kommt die euklidische Metrik (siehe~\ref{ssub:euclideanDistance}) zum Einsatz. Der Einfachheit halber wird angenommen, dass keine drei Punkte aus $S$ auf einer gemeinsamen Geraden liegen, was bedeutet, dass das Voronoi-Diagramm $V(S)$ zusammenhängend ist und nur Voronoi-Knoten vom Grad drei enthält. Dies hat zur Folge, dass die Delaunay-Triangulation von S $DT(S)$ effektiv eine Triangulation von $S$ ist.
@@ -51,6 +51,34 @@ Wird eine möglichst effiziente Datenstruktur zur Speicherung des Voronoi-Diagra
 \label{fig:delaunayExample018000}
 \end{minipage}
 
-\subsubsection{Divide and conquer}
+\subsubsection{Divide-and-Conquer-Verfahren}
 \label{ssub:voronoiAlgorithmsDivAndConq}
+Gemäss~\cite{goodrich2002algorithm} besteht das Divide-and-Conquer-Verfahren (zu Deutsch ``Teile und Herrsche'') grundsätzlich aus drei Schritten:
 
+\begin{compactitem}
+    \item \textbf{Divide (Teilen)}: Ist ein (Teil-) Problem kleiner als ein gewisser Schwellwert (z.B. ein oder zwei Elemente), wird das (Teil-) Problem mit einer direkten Methode gelöst und danach das Result zurückgegeben. Andernfalls wird das (Teil-) Problem in zwei oder mehrere, möglichst gleichgrosse Teilprobleme aufgeteilt.
+
+    \item \textbf{Recur (Wiederholen)}: Die Teilprobleme werden rekursiv gelöst.
+
+    \item \textbf{Conquer (Erobern)}: Die Lösungen der Teilprobleme werden zu einer Gesamtlösung des ursprünglichen Problems zusammengefügt.
+
+\end{compactitem}
+
+Nach~\cite{shamos1975closestpoint} kann das Divide-and-Conquer-Verfahren zur Erzeugung eines Voronoi-Diagramms $V(S)$ eingesetzt werden. Ein zentraler Aspekt ist hierbei, die $n$-elementige Menge $S$ mittels sogenannten \textit{\textbf{Splitgeraden}}, welche horizontal oder vertikal sind, in Teilmengen zu zerteilen.
+
+Wie~\cite{klein2005algorithmischegeometrie} schreibt, führt dies zu folgendem Initialisierungsaufwand für den \textbf{Divide-Schritt}: ``Nach $O(n * \log{n})$ Vorbereitungszeit lässt sich die Punktemenge $S$ rekursiv durch achsenparalllel Splitgeraden so zerlegen, dass jeder Zerlegungsschritt einer Teilmenge $T$ in Zeit $O(|T|)$ ausgeführt werden kann und zwei Teilmengen mit Mideströsse $1/4(|T| - 1)$ liefert.
+
+Ein weiterer zentraler Aspekt ist nun die Frage, wie schnell sich zwei Voronoi-Diagramme, z.B. $V(R)$ und $V(S)$ zu einem gemeinsamen Voronoi-Diagramm, also $V(R \in S)$ zusammensetzen (\textbf{Conquer-Schritt}) lassen. Hierzu müssen zwischen zwei Arten von Voronoi-Kanten unterschieden werden: Kanten, deren Punkte zu derselben Teilmenge $R$ oder $S$ gehören und Kanten, die zwischen den beiden Regionen verlaufen. Diese Kanten bilden den Bisektor der beiden Teilmengen $B(R,S)$, oder, wie es~\cite{klein2005algorithmischegeometrie} sehr schön sagt: ``$V(R)$ und $V(S)$ werden mit dem Faden $B(R,S)$ zusammengenäht, und die überstehenden Stücke werden abgeschnitten.''. Die schwierigste Aufgabe ist also die Konstruktion des Bisektors. Alle anderen Schritte können dann in der Zeit $O(n)$ vorgenommen werden.
+
+Das Erstellen des Bisektors der beiden Voronoi-Regionen geschieht in zwei Phasen. Zuerst wird eines der unbeschränkten Endstücke von $B(R,S)$ gesucht, dann verfolgt man den Bisektor durch beide Voronoi-Diagramme $V(R)$ und $V(S)$ bis man bei dem anderen Endstück von $B(R,S)$ angelangt.
+
+Ist also ein Endstück des Bisektors $B(R,S)$ bekannt, lässt sich der Rest davon durch simultane Verfolgung von $V(R)$ und $V(S)$ in der Zeit $O(n)$ bestimmen.
+
+Somit lässt sich ein Voronoi-Diagramm aus $n$-Punkten in einer Ebene in der Zeit $O(n * \log{n})$ und linearem Speicherplatz konstruieren.
+
+\subsection{Vergleich}
+\label{ssec:voronoiAlgorithmsComparison}
+
+Betrachtet man die beiden Verfahren im Vergleich, so stellt man fest, dass deren Laufzeit wie auch deren Speicherplatzbedarf derselbe ist, nämlich $O(n * \log{n})$ bzw. $O(n)$.
+
+Der einzig offensichtliche Vorteil des Divide-and-Conquer-Verfahrens könnte sich in der möglichen Parallelität zeigen. Die einzelnen Teilprobleme könnten heutzutage problemlos parallel auf mehreren Kernen gelöst werden. Allerdings bringt dies sicherlich wiederum etwas Aufwand zur Synchronisierung mit sich. Beim Sweep-Verfahren wäre dies wohl nicht möglich, da dort gilt, dass alles, was sich links der Sweep-Line befindet nicht mehr von Änderungen beeinflusst werden darf.
