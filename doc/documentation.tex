@@ -17,18 +17,14 @@
 \addbibresource{./bibliography.bib}
 \usepackage[ngerman]{babel}
 \usepackage[babel,german=quotes]{csquotes}
+\usepackage[font=footnotesize,labelfont=bf]{caption}
 
 % Set TOC title
 \renewcommand{\contentsname}{Inhalt}
-\addto\captionsngerman{
-  \renewcommand{\contentsname}
-    {Inhalt}
-}
+\addto\captionsngerman{\renewcommand{\contentsname}{Inhalt}}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{
-	\rotatebox{0}{\scalebox{0.5}[0.5]{\includegraphics{images/BFH_Logo_C_de_100_RGB.png}}}
-}
+\fancyhead[L]{\rotatebox{0}{\scalebox{0.5}[0.5]{\includegraphics{images/BFH_Logo_C_de_100_RGB.png}}}}
 \fancyhead[C]{}
 \fancyhead[R]{}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -66,17 +62,9 @@
 
 \include{partials/introduction}
 
-\newpage
-
 \include{partials/basics}
 
-\newpage
-
-\include{partials/voronoi/voronoi}
-
-\newpage
-
-\include{partials/delaunay/delaunay}
+\include{partials/details}
 
 \newpage
 

@@ -1,5 +1,49 @@
-\newglossaryentry{FooBar}
-{
-  name=FooBar,
-  description={is the nicest of all glossary entries you may ever see in the whole wide world of glossaries.}
+\newglossaryentry{tesselation}{name=Tesselation,
+    description={zu Deutsch Parkettierung. Frei übersetzt nach \footcite{schwartzman1994words}. `Von dem lateinischen Wort \textit{tessera} ``eine viereckige Tafel'' oder ``ein Würfel, benutzt zum Spielen''. Das lat. Wort \textit{tessera} wurde sehr wahrscheinlich von dem griechischen Wort tessares, was soviel wie ``vier'' bedeutet, abgeleitet bzw.\ ausgeliehen, da ein quadratisches Feld über vier Seiten verfügt. Die Kurzform von tessera war \textbf{tessella}, ein kleines, quadratisches Stück Stein oder eine kubische Kachel, wie sie bei Mosaik zur Verwendung kommt. Da ein Mosaik sich über eine gegebene Fläche ersttreckt, ohne eine Region auszulassen, ist die geometrische Bedeutung des Wortes tessellieren ``eine Ebene mit einem Muster bedecken, so dass keine Region unbedeckt bleibt.''. Raum oder Hyperraum kann auch tesseliert werden}
 }
+
+\newglossaryentry{dualGraph}{name=Dualer Graph,
+    description={Gegeben sei $G$, ein kreuzungsfreier, nicht leerer und zusammenhängender Graph. Wie~\cite{klein2005algorithmischegeometrie} angibt, ist ein Graph $G*$ dann dual zu $G$, wenn Folgendes gilt:
+    \begin{compactitem}
+    \item Im Innern jeder Fläche von $G$ werden neue Punkte $p_F^*$ hinzugefügt. Dies sind die Knoten von $G^*$.
+    \item Für jede Kante $e$ (edge) von $G$, welche die angrenzenden Flächen $F$ und $F'$ besitzt, werden die Punkte $p_F^*$ und $p_{F'}^*$ zu einer Kante $e^*$ verbunden. Diese kreuzt nur die Kante $e$ und sonst keine andere Kante.
+    \end{compactitem}
+    Wenn dies gilt, dann ist $\boldsymbol{G^*}$ der \textbf{\textit{duale Graph}} von $G$. ${(G^*)}^*$ ist wiederum zum Graphen $G$ äquivalent}
+}
+
+
+\newglossaryentry{bigOh}{name=Gross-Oh $O()$,
+    description={Die Gross-Oh-Notation $O$ besagt, dass eine Funktion maximal das asymptotische Wachstumsverhalten der angegebenen Funktion aufweist, beispielsweise:
+\noindent\hspace*{10mm}%
+$g \in O(f)$
+Dies besagt, dass die Funktion $g$ in ihrem asymptotischen Wachstum praktisch überall (bis auf einen konstanten Faktor) durch die Funktion $f$ beschränkt ist.
+Sie bildet also eine Art obere Schranke. Frei nach~\cite{goodrich2002algorithm} übersetzt}
+}
+
+\newglossaryentry{bigOmega}{name=Gross-Omega $\Omega()$,
+    description={Die Gross-Omega-Notation $\Omega$ definiert eine untere Schranke, welche besagt, dass eine Funktion bis auf einen konstanten Faktor in ihrem asymptotischen Wachstum grösser oder gleich einer anderen Funktion ist,
+beispielsweise:
+\noindent\hspace*{10mm}%
+$g \in \Omega(f)$
+Wodurch auch $f \in O(g)$ gilt. Frei nach~\cite{goodrich2002algorithm} übersetzt}
+}
+
+\newglossaryentry{bigTheta}{name=Gross-Theta $\Theta()$,
+    description={Die Gross-Theta-Notation $\Theta$ erlaubt es, zu sagen, dass zwei Funktionen $g$ und $f$ bis zu einem konstanten Faktor dasselbe asymptotische Wachstumsverhalten aufweisen, beispielsweise:
+\noindent\hspace*{10mm}%
+$g \in \Theta(f)$
+Wodurch auch $g \in O(f)$ und $g \in \Omega(f)$ gilt. Frei nach~\cite{goodrich2002algorithm} übersetzt}
+}
+
+\newglossaryentry{geometricalObjects}{name=Geometrische Objekte,
+    description={[Beschreibung Polygon, konvex, konkav]}
+}
+
+\newglossaryentry{simplex}{name=Simplex,
+    description={[Beschreibung Simplex]}
+}
+
+\newglossaryentry{bisector}{name=Bisektor,
+    description={[Beschreibung Bisektor]}
+}
+
