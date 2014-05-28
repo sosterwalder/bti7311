@@ -7,78 +7,67 @@
 \usepackage{mathtools}
 \usepackage{hyperref}
 \usepackage{floatflt}
-\usepackage[xindy]{glossaries}
+\usepackage[xindy,nonumberlist]{glossaries}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{bookmark}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\usepackage[style=authoryear,backend=biber]{biblatex}
+\usepackage[style=authoryear-ibid,backend=biber]{biblatex}
 \addbibresource{./bibliography.bib}
 \usepackage[ngerman]{babel}
 \usepackage[babel,german=quotes]{csquotes}
-\usepackage[font=footnotesize,labelfont=bf]{caption}
+\usepackage[font=footnotesize,labelfont=bf,justification=raggedright]{caption}
+\usepackage{bm}
 
 % Set TOC title
 \renewcommand{\contentsname}{Inhalt}
 \addto\captionsngerman{\renewcommand{\contentsname}{Inhalt}}
+
+% Set heading
+\defbibheading{head}{\section{Quellenverzeichnis}}
+
 \pagestyle{fancy}
-\fancyhf{}
+\fancyhf{}  % empty header and footer
 \fancyhead[L]{\rotatebox{0}{\scalebox{0.5}[0.5]{\includegraphics{images/BFH_Logo_C_de_100_RGB.png}}}}
 \fancyhead[C]{}
 \fancyhead[R]{}
 \renewcommand{\headrulewidth}{0.4pt}
-\fancyfoot[R]{\thepage /  \pageref{LastPage}}
+\fancyfoot[L]{Voronoidiagramme und Delaunay-Triangulation}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage{} /~\pageref{LastPage}}
 \renewcommand{\footrulewidth}{0.4pt}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \input{./glossary.tex}
-\makeglossaries
+\makeglossaries{}
 % Add all glossary entries no matter if they get
 % referenced or not
-\glsaddall
+\glsaddall{}
 
 \setlength{\headheight}{32pt}
 \setlength{\abovecaptionskip}{2pt plus 3pt minus 2pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{10pt plus 1pt minus 1pt}
 
-\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+\apptocmd{\sloppy}{\hbadness10000\relax}{}{}
 
 % Add all bibliography entries no matter if they
 % get cited or nod
 \nocite{*}
 
 \begin{document}
-
-\input{./title.tex}
-
+\include{title}
 \newpage
-
 \tableofcontents
-
 \newpage
-
 \include{partials/introduction}
-
-\include{partials/basics}
-
 \include{partials/details}
-
 \newpage
-
-\section{Schlusswort}
-[Zusammenfassendes Schlusswort der Arbeit.]
-
+\include{partials/ending}
 \newpage
-
-\section{Literaturliste}
-
-\printbibliography
-
+\printbibliography[heading=head]
 \newpage
-
 \printglossary[numberedsection]
-
 \end{document}

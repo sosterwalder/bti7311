@@ -1,84 +1,19 @@
 \subsection{Algorithmen}
 \label{sub:voronoiAlgorithms}
-[Vorstellung von versch. Algorithmen für Voronoi-Diagramme (sofern mehrere existieren), Laufzeitverhalten, Komplexität, Vor- und Nachteile.]
-
 In diesem Kapitel werden die zwei wahrscheinlich meist verwendeten praktische Methoden zur Konstruktion eines Voronoi-Diagramms, das \textit{\textbf{Sweep-}} und das \textit{\textbf{Divide-And-Conquer-Verfahren}}, vorgestellt und hinsichtlich deren Laufzeitverhalten, Komplexität sowie deren Vor- und Nachteile untersucht.
 
-Dabei wird nur der einfachste Fall untersucht: Die Konstruktion eines Voronoi-Diagramm aus einer Menge $S$ mit $n$ Punkten auf einer Ebene. Das Voronoi-Diagramm $V(S)$ soll dabei möglichst effizient berechnet werden.
+Dabei wird nur der einfachste Fall untersucht: Die Konstruktion eines Voronoi-Diagramm aus einer Menge $S$ mit $n$ Punkten auf der euklidischen Ebene $\mathbb{R}^2$. Das Voronoi-Diagramm $V(S)$ soll dabei möglichst effizient berechnet werden.
 
-Da die beiden Strukturen Voronoi-Diagramm $V(S)$ und Delaunay-Triangulation $DT(S)$ dual sind, genügt es eine der beiden Struktur zu berechnen. Die andere Struktur lässt
-sich in der Zeit $O(n)$ (siehe~\ref{sub:bigSymbols}) daraus ableiten.
+Da ein Voronoi-Diagramm $V(S)$ und die Delaunay-Triangulation $DT(S)$ dual zueinander sind, genügt es eine der beiden Struktur zu berechnen. Die andere Struktur lässt
+sich in der Zeit \glslink{bigOh}{$O(n)$} daraus ableiten~\parencite[S. 232]{klein2005algorithmischegeometrie}.
 
-Als Grundlage zur Messung der Distanz kommt die euklidische Metrik (siehe~\ref{ssub:euclideanDistance}) zum Einsatz. Der Einfachheit halber wird angenommen, dass keine drei Punkte aus $S$ auf einer gemeinsamen Geraden liegen, was bedeutet, dass das Voronoi-Diagramm $V(S)$ zusammenhängend ist und nur Voronoi-Knoten vom Grad drei enthält. Dies hat zur Folge, dass die Delaunay-Triangulation von S $DT(S)$ effektiv eine Triangulation von $S$ ist.
+Als Grundlage zur Messung der Distanz kommt die \glslink{euclideanDistance}{euklidische Metrik} zum Einsatz. Der Einfachheit halber wird angenommen, dass keine drei Punkte aus $S$ auf einer gemeinsamen Geraden liegen, was bedeutet, dass das Voronoi-Diagramm $V(S)$ zusammenhängend ist und nur Voronoi-Knoten vom Grad drei enthält. Dies hat zur Folge, dass die Delaunay-Triangulation von S $DT(S)$ effektiv eine Triangulation von $S$ ist.
 
-Alle nachfolgend vorgestellten Algorithmen sind optimal, insofern sie das Voronoi-Diagramm $V(S)$ in der Zeit $O(n * \log(n))$ und mit Speicherplatz $O(n)$ berechnen.
+Alle nachfolgend vorgestellten Algorithmen sind optimal, insofern sie das Voronoi-Diagramm $V(S)$ in der Zeit $O(n \log(n))$ und mit Speicherplatz $O(n)$ berechnen~\parencite[S. 269]{klein2005algorithmischegeometrie}.
 
-\subsubsection{Sweep-Verfahren}
-\label{ssub:voronoiAlgorithmsSweep}
-Grundsätzlich funktioniert das Sweep-Verfahren so, dass man eine bestimmte Eigenschaft einer Menge von Objekten ermitteln möchte. Dazu werden alle Objekte der Reihe nach besucht und für alle bereits besuchten Objekte werden geeignete Informationen (welche je nach Anwendungsfall variieren) abgelegt. Aus den Informationen ergibt sich schlussendlich die gesuchte Eigenschaft.
+\newpage{}
 
-Um den Sweep-Algorithmus auf ein Voronoi-Diagramm anwenden zu können werden beim Sweepen nur die Teile des Voronoi-Diagramms gespeichert, welche links der Sweep-Line $L$ liegen und sich nicht mehr ändern können. Dies heisst, dass kein Punkt rechts von $L$ das Gebiet links der Sweep-Line beeinflussen.
-
-Konkret werden die $n$ Punkte aus $S$ in der Reihenfolge aufsteigender X-Koordinaten sortiert und dann jeweils der Bisektor zwischen einem Punkt aus $S$ und der Sweep-Line $L$ in Form einer Parabel $B(p_j, L)$ gebildet. Dies ergibt schlussendlich den Rand der Voronoi-Region, bestehend aus Parabelbögen, genannt \textit{\textbf{Wellenfront}} $W$. Die Parabeln folgen dabei der Sweep-Line mit halber Geschwindigkeit.
-
-Der Schnittpunkt zweier benachbarter Stücke der Wellenfront $W$, z.B. $B(r, L) \cap B(s, L)$, rückt mit fortschreitender Sweep-Line längs deren gerade Bisektors $B(r, s)$ vor. ``Die Verlängerung dieser Bisektoren nach rechts über die Wellenfront hinaus werden \textbf{\textit{Spikes}} genannt''~\cite{klein2005algorithmischegeometrie}.
-
-Mit Fortschreiten der Sweep-Line ist es natürlich möglich, dass ein Wellenstück verschwindet, da es den Schnittpunkt seiner beiden Spikes erreicht, und, dass ein neues Wellenstück erscheint, wenn die Sweep-Line $L$ auf einen neuen Punkt $p$ aus $S$ trifft.
-
-Um schlussendlich das Voronoi-Diagramm $V(S)$ von $S$ zu bilden, wird $V(S)$ von Ereignis zu Ereignis erweitert. Wenn schlussendlich kein Ereignis mehr zu bearbeiten ist, wird die Sweep-Line entfernt und alle noch vorhandenen Spikes werden als unbeschränkte Voronoi-Kanten zu $V(S)$ hinzugefügt.
-
-Wird eine möglichst effiziente Datenstruktur zur Speicherung des Voronoi-Diagramms $V(S)$, wie etwa die Sweep-Status-Struktur und die Ereignis-Struktur wie von~\cite{klein2005algorithmischegeometrie} vorgeschlagen, bleibt die Grösse in $O(n)$ und die Laufzeit $O(n * \log(n))$.
-
-\begin{minipage}[t]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/sweep_line_01.png}
-    \captionof{figure}{Sweepline ``vor'' Punkt $P1$}
-\label{fig:delaunayExample01Orig}
-\end{minipage}
-\begin{minipage}[t]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/sweep_line_02.png}
-    \captionof{figure}{Sweepline ``nach'' $P1$ mit Bisektor $B(P1, L)$}
-\label{fig:delaunayExample01500}
-\end{minipage}
-
-\begin{minipage}[t]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/sweep_line_03.png}
-    \captionof{figure}{Sweepline ``nach'' $P1$, ``vor'' $P2$}
-\label{fig:delaunayExample018000}
-\end{minipage}
-\begin{minipage}[t]{0.5\textwidth}
-    \includegraphics[width=\textwidth]{images/sweep_line_04.png}
-    \captionof{figure}{Sweepline ``nach'' $P1$ und $P2$ mit Voronoi-Kante $b$}
-\label{fig:delaunayExample018000}
-\end{minipage}
-
-\subsubsection{Divide-and-Conquer-Verfahren}
-\label{ssub:voronoiAlgorithmsDivAndConq}
-Gemäss~\cite{goodrich2002algorithm} besteht das Divide-and-Conquer-Verfahren (zu Deutsch ``Teile und Herrsche'') grundsätzlich aus drei Schritten:
-
-\begin{compactitem}
-    \item \textbf{Divide (Teilen)}: Ist ein (Teil-) Problem kleiner als ein gewisser Schwellwert (z.B. ein oder zwei Elemente), wird das (Teil-) Problem mit einer direkten Methode gelöst und danach das Result zurückgegeben. Andernfalls wird das (Teil-) Problem in zwei oder mehrere, möglichst gleichgrosse Teilprobleme aufgeteilt.
-
-    \item \textbf{Recur (Wiederholen)}: Die Teilprobleme werden rekursiv gelöst.
-
-    \item \textbf{Conquer (Erobern)}: Die Lösungen der Teilprobleme werden zu einer Gesamtlösung des ursprünglichen Problems zusammengefügt.
-
-\end{compactitem}
-
-Nach~\cite{shamos1975closestpoint} kann das Divide-and-Conquer-Verfahren zur Erzeugung eines Voronoi-Diagramms $V(S)$ eingesetzt werden. Ein zentraler Aspekt ist hierbei, die $n$-elementige Menge $S$ mittels sogenannten \textit{\textbf{Splitgeraden}}, welche horizontal oder vertikal sind, in Teilmengen zu zerteilen.
-
-Wie~\cite{klein2005algorithmischegeometrie} schreibt, führt dies zu folgendem Initialisierungsaufwand für den \textbf{Divide-Schritt}: ``Nach $O(n * \log{n})$ Vorbereitungszeit lässt sich die Punktemenge $S$ rekursiv durch achsenparalllel Splitgeraden so zerlegen, dass jeder Zerlegungsschritt einer Teilmenge $T$ in Zeit $O(|T|)$ ausgeführt werden kann und zwei Teilmengen mit Mideströsse $1/4(|T| - 1)$ liefert.
-
-Ein weiterer zentraler Aspekt ist nun die Frage, wie schnell sich zwei Voronoi-Diagramme, z.B. $V(R)$ und $V(S)$ zu einem gemeinsamen Voronoi-Diagramm, also $V(R \in S)$ zusammensetzen (\textbf{Conquer-Schritt}) lassen. Hierzu müssen zwischen zwei Arten von Voronoi-Kanten unterschieden werden: Kanten, deren Punkte zu derselben Teilmenge $R$ oder $S$ gehören und Kanten, die zwischen den beiden Regionen verlaufen. Diese Kanten bilden den Bisektor der beiden Teilmengen $B(R,S)$, oder, wie es~\cite{klein2005algorithmischegeometrie} sehr schön sagt: ``$V(R)$ und $V(S)$ werden mit dem Faden $B(R,S)$ zusammengenäht, und die überstehenden Stücke werden abgeschnitten.''. Die schwierigste Aufgabe ist also die Konstruktion des Bisektors. Alle anderen Schritte können dann in der Zeit $O(n)$ vorgenommen werden.
-
-Das Erstellen des Bisektors der beiden Voronoi-Regionen geschieht in zwei Phasen. Zuerst wird eines der unbeschränkten Endstücke von $B(R,S)$ gesucht, dann verfolgt man den Bisektor durch beide Voronoi-Diagramme $V(R)$ und $V(S)$ bis man bei dem anderen Endstück von $B(R,S)$ angelangt.
-
-Ist also ein Endstück des Bisektors $B(R,S)$ bekannt, lässt sich der Rest davon durch simultane Verfolgung von $V(R)$ und $V(S)$ in der Zeit $O(n)$ bestimmen.
-
-Somit lässt sich ein Voronoi-Diagramm aus $n$-Punkten in einer Ebene in der Zeit $O(n * \log{n})$ und linearem Speicherplatz konstruieren.
-
-\subsection{Vergleich}
-\label{ssec:voronoiAlgorithmsComparison}
-
-Betrachtet man die beiden Verfahren im Vergleich, so stellt man fest, dass deren Laufzeit wie auch deren Speicherplatzbedarf derselbe ist, nämlich $O(n * \log{n})$ bzw. $O(n)$.
-
-Der einzig offensichtliche Vorteil des Divide-and-Conquer-Verfahrens könnte sich in der möglichen Parallelität zeigen. Die einzelnen Teilprobleme könnten heutzutage problemlos parallel auf mehreren Kernen gelöst werden. Allerdings bringt dies sicherlich wiederum etwas Aufwand zur Synchronisierung mit sich. Beim Sweep-Verfahren wäre dies wohl nicht möglich, da dort gilt, dass alles, was sich links der Sweep-Line befindet nicht mehr von Änderungen beeinflusst werden darf.
+\input{partials/voronoi/algorithms/sweep}
+\newpage{}
+\input{partials/voronoi/algorithms/divide_and_conquer}
+\input{partials/voronoi/algorithms/comparison}

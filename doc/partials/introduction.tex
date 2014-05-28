@@ -3,8 +3,7 @@
 Die vorliegende Arbeit wurde im Rahmen des Moduls BTI7311-Informatik-\\
 seminar zum Thema \textit{Voronoidiagramme und Delaunay-Triangulation} verfasst.
 
-Der erste Teil gibt dabei einen Überblick der wichtigsten Defintionen sowie Grundlagen der Themen, 
-im zweiten Teil finden Sie Details zu den einzelnen Themen.
+Der erste Teil befasst sich mit Voronoi-Diagrammen, der zweite Teil mit der Delaunay-Triangulation. Es wird jeweils eine Einführung in die Thematik gegeben, danach werden die Grundlagen erörtert und schlussendlich Algorithmen zur Umsetzung und Anwendung aufgezeigt und verglichen.
 
 Nehmen Sie an, Sie befinden sich in einer Stadt in einem fremden Land dessen Sprache Sie nicht sprechen, z.B. in Polen.
 Sie müssen jedoch um jeden Preis die nächstgelegene Poststelle finden um ein wichtiges Schreiben zu versenden, dessen
@@ -14,17 +13,14 @@ Genau solch ein Problem lässt sich mit einem \textit{\textbf{Voronoi-Diagramm}}
 alle umliegenden Poststellen eingezeichnet sind. In der Realität fragen Sie wahrscheinlich eher eine hilfsbereite Person
 nach der nächstgelegenen Poststelle.
 
-Angenommen, Sie verfügen über solch eine Karte und haben die nächste Poststelle bereits gefunden (und somit das Schreiben versendet) und
+Bei \textbf{Voronoi-Diagrammen} handelt es sich also um eine Zerlegung des Raumes in Regionen: Aus einem endlichen Satz von eindeutigen, isolierten Punkten in einem kontinuierlichen Raum wird jeder Ort dieses Raumes dem nächsten Punkt des Satzes zugeordnet.
+
+Angenommen, Sie verfügen über solch eine Karte und haben dank dem erstellen Voronoi-Diagramm die nächstgelegene Poststelle bereits gefunden (und somit das Schreiben versendet) und
 möchten nun die landschaftliche Situation der Poststellen virtuell grafisch darstellen, weil Sie z.B. in der Geoinformatik tätig sind. Genau hierfür
 eignet sich die \textit{\textbf{Delaunay-Triangualation.}}
 
+Verbindet man in einem \textit{m}-dimensionalen Raum die Punkte, deren Regionen eine (\textit{m}-1)-dimensionale Fläche teilen, so erhält man die so genannte \textbf{Delaunay-Triangulation},
+welche dual zu dem zugehörigen Voronoi-Diagramm ist (siehe~\ref{sub:delaunayAlgorithms}).
+
 Diese schriftliche Arbeit dient als Ergänzung zum Vortrag in diesem Modul.
 Der Text kann jedoch auch eigenständig betrachtet werden.
-
-\noindent [TODO:]
-\begin{compactitem}
-	\item 10--20 Seiten
-	\item Vollständige Literaturliste
-	\item Klarer, verständlicher Aufbau
-	\item Korrekte Sprache
-\end{compactitem}

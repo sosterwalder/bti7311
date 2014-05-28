@@ -1,0 +1,6 @@
+\subsection{Vergleich}
+\label{ssec:voronoiAlgorithmsComparison}
+
+Betrachtet man die beiden Verfahren im Vergleich, so stellt man fest, dass deren Laufzeit, wie auch deren Speicherplatzbedarf derselbe ist, nämlich $O(n \log{n})$ bzw. $O(n)$.
+
+Der einzige offensichtliche Vorteil des Divide-and-Conquer-Verfahrens könnte sich in der möglichen Parallelität zeigen. Die einzelnen Teilprobleme könnten heutzutage problemlos parallel auf mehreren Kernen gelöst werden. Allerdings bringt dies sicherlich wiederum etwas Aufwand zur Synchronisierung mit sich. Beim Sweep-Verfahren wäre dies wohl nicht möglich, da dort gilt, dass alles, was sich links, der Sweep-Line befindet nicht mehr von Änderungen beeinflusst werden darf.
